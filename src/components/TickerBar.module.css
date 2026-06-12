@@ -1,0 +1,30 @@
+.tickerBar {
+  background: #1400FF;
+  color: #ffffff;
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  height: 32px;
+}
+
+.tickerInner1,
+.tickerInner2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  line-height: 32px;
+  animation: ticker 18s linear infinite;
+  animation-fill-mode: both;
+}
+
+.tickerInner2 {
+  animation-delay: 8s;
+}
+
+@keyframes ticker {
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100vw); }
+}

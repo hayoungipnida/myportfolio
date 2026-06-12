@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Fragment+Mono&display=swap');
+
+.root {
+  font-family: 'Fragment Mono', 'Courier New', monospace;
+  background: #ffffff;
+  color: #0A0A0A;
+  overflow-x: hidden;
+  min-height: 100vh;
+  scroll-snap-type: y mandatory;
+}
+
+.divider {
+  height: 1px;
+  background: #e0e0e0;
+  margin: 0 3rem;
+}

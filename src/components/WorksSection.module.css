@@ -1,0 +1,353 @@
+.dragSection {
+  width: 100%;
+  height: 100vh; 
+  padding: 2.5rem 3rem 1.5rem; 
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  align-items: center;
+}
+
+.sectionLabel {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: #888;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.brackets {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.bracket {
+  font-size: 80px;
+  color: #1400FF;
+  font-weight: 200;
+  line-height: 1;
+  user-select: none;
+}
+
+.macbookWrapper {
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+
+.macbook {
+  position: relative;
+  width: 340px;
+}
+
+.macbookContainer {
+  position: relative;
+  width: 380px; /* 원하시는 맥북 화면 크기로 자유롭게 조절 가능 */
+  max-width: 85vw;
+  display: inline-block;
+}
+
+/* 맥북 이미지 자체 스타일 */
+.macbookImg {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+  pointer-events: none; /* 드래그 앤 드롭 시 이미지가 방해하지 않도록 설정 */
+}
+
+/* 💡 핵심: 맥북 이미지의 화면(디스플레이) 영역에 정확히 겹치게 배치 */
+.macbookScreenOverlay {
+  position: absolute;
+  
+  /* 일반적인 맥북 이미지 비율 기준 위치 (가지고 계신 이미지에 맞춰 %, px 살짝 조절 필요할 수 있음) */
+  top: 9%;      
+  left: 12%;
+  width: 76%;
+  height: 72%;
+  
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 4px; /* 모니터 내부 모서리 곡률 */
+}
+
+/* 내부 슬롯 높이를 오버레이 크기에 100% 꽉 차게 변경 */
+.dropSlot, .loadedSlot {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+/* 드롭 슬롯의 테두리가 실물 맥북 경계선과 너무 붙지 않도록 안쪽 마진 살짝 부여 */
+.dropSlot {
+  border: 1.5px dashed #555;
+  border-radius: 4px;
+  width: 92%;
+  height: 92%;
+  color: #666;
+  font-size: 11px;
+  font-family: 'Courier New', monospace;
+}
+
+.loadedSlot {
+  border: 1.5px solid #1400FF;
+  border-radius: 4px;
+  width: 92%;
+  height: 92%;
+  background: #f4f4ff;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+  cursor: pointer;
+}
+
+.loadedTag {
+  font-size: 9px;
+  color: #1400FF;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.loadedTitle {
+  font-size: 13px;
+  color: #0A0A0A;
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+
+.loadedMeta {
+  font-size: 9px;
+  color: #999;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.loadedOpen {
+  font-size: 10px;
+  color: #1400FF;
+  letter-spacing: 0.08em;
+  border: 1px solid #1400FF;
+  padding: 4px 10px;
+  text-transform: uppercase;
+}
+
+.macbookBase {
+  background: #c8c8c8;
+  height: 12px;
+  border-radius: 0 0 8px 8px;
+  border: 1.5px solid #bbb;
+  border-top: none;
+}
+
+.macbookFoot {
+  background: #b0b0b0;
+  height: 4px;
+  width: 60%;
+  margin: 0 auto;
+  border-radius: 0 0 4px 4px;
+}
+
+/* drag items */
+.itemsRow {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.dragItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: grab;
+  position: relative;
+  user-select: none;
+}
+
+.dragItem:active {
+  cursor: grabbing;
+}
+
+.dragItemImg {
+  width: 80px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  position: relative;
+  transition: transform 0.2s;
+}
+
+.dragItem:hover .dragItemImg {
+  transform: translateY(-4px);
+}
+
+.dragItemLabel {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: #666;
+}
+
+/* hover tooltip */
+.tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #FF2AE0;
+  color: #fff;
+  padding: 10px 14px 20px;
+  width: 160px;
+  font-size: 11px;
+  line-height: 1.5;
+  z-index: 200;
+  pointer-events: none;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(50% + 8px) calc(100% - 10px), 50% 100%, calc(50% - 8px) calc(100% - 10px), 0 calc(100% - 10px));
+}
+
+.dragItem:hover .tooltip {
+  display: block;
+}
+
+.tooltipStrong {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 4px;
+  letter-spacing: 0.04em;
+}
+
+.tooltipLv {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+
+.hint {
+  text-align: center;
+  font-size: 12px;
+  color: #888;
+  margin-top: 2rem;
+  letter-spacing: 0.04em;
+}
+
+/* expanded browser window overlay */
+.browserOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.browserWindow {
+  background: #fff;
+  width: min(90vw, 760px);
+  max-height: 85vh;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+}
+
+.browserTopBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #e8e8e8;
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.trafficLight {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.trafficLightRed { background: #ff5f57; }
+.trafficLightYellow { background: #febc2e; }
+.trafficLightGreen { background: #28c840; }
+
+.browserTitle {
+  margin-left: 8px;
+  font-size: 12px;
+  color: #555;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.08em;
+  flex: 1;
+  text-align: center;
+}
+
+.browserClose {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #888;
+  font-family: 'Courier New', monospace;
+}
+
+.browserContent {
+  overflow: auto;
+  background: #fafafa;
+}
+
+.browserScreenshot {
+  width: 100%;
+  display: block;
+}
+
+.browserPlaceholder {
+  padding: 2rem;
+  font-family: 'Courier New', monospace;
+}
+
+.modalTag {
+  font-size: 11px;
+  color: #1400FF;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.modalTitle {
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.modalMeta {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.04em;
+}
+
+.modalDesc {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #333;
+  border-top: 1px solid #eee;
+  padding-top: 1rem;
+}

@@ -1,0 +1,23 @@
+
+:root {
+  --font-gothic: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+}
+
+.nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+  padding: 1rem 3rem;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  font-family: var(--font-gothic);
+}
+
+.navLink {
+  color: #0A0A0A;
+  text-decoration: none;
+}
+
+.navLink:hover {
+  text-decoration: underline;
+}
