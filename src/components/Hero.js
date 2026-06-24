@@ -16,18 +16,20 @@ export default function Hero() {
   const [visibleDecor, setVisibleDecor] = useState([]);
  
 
-  useEffect(() => {
-  const container = document.querySelector('[class*="root"]');
-  if (!container) return;
+ useEffect(() => {
+  if (typeof window !== "undefined") {
+    const container = document.querySelector('[class*="root"]');
+    if (!container) return;
 
-  const handleScroll = () => {
-    setExpandedHero(container.scrollTop > 20);
-  };
+    const handleScroll = () => {
+      setExpandedHero(container.scrollTop > 20);
+    };
 
-  container.addEventListener("scroll", handleScroll);
-  return () => container.removeEventListener("scroll", handleScroll);
+    container.addEventListener("scroll", handleScroll);
+    return () => container.removeEventListener("scroll", handleScroll);
+  }
 }, []);
- 
+
   // Staggered fade-in of background "HA0HA0" decorations
   useEffect(() => {
     const timers = DECOR_POSITIONS.map((_, i) =>
