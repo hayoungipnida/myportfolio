@@ -4,9 +4,10 @@
   font-family: 'Fragment Mono', 'Courier New', monospace;
   background: #ffffff;
   color: #0A0A0A;
-  overflow-x: hidden;
-  min-height: 100vh;
+  height: 100vh;
   scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 
 .divider {

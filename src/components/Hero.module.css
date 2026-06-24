@@ -1,16 +1,18 @@
 .hero {
-  min-height: 100vh;
+  height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 3rem;
+  padding: 82px 3rem 0;
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
- 
+
 .heroContent {
   position: relative;
   z-index: 2;
@@ -19,13 +21,13 @@
   gap: 1.5rem;
   flex-wrap: wrap;
 }
- 
+
 .nameBlock {
   display: flex;
   flex-direction: column;
   text-align: left;
 }
- 
+
 .heroLine {
   display: block;
   font-size: clamp(32px, 5vw, 56px);
@@ -33,7 +35,7 @@
   line-height: 1.15;
   letter-spacing: -0.01em;
 }
- 
+
 .portfolioWord {
   display: inline-block;
   font-size: clamp(60px, 11vw, 140px);
@@ -43,11 +45,11 @@
   transform-origin: left bottom;
   transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
- 
+
 .portfolioWordExpanded {
   transform: scaleY(1.8);
 }
- 
+
 .scrollHint {
   position: absolute;
   bottom: 2rem;
@@ -58,8 +60,7 @@
   letter-spacing: 0.06em;
   z-index: 2;
 }
- 
-/* background decoration: faint "HA0HA0" labels that fade in over time */
+
 .decor {
   position: absolute;
   font-size: 11px;
@@ -71,8 +72,7 @@
   pointer-events: none;
   user-select: none;
 }
- 
+
 .decorVisible {
   opacity: 0.5;
 }
- 

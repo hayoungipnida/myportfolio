@@ -15,14 +15,18 @@ export default function Hero() {
   const [expandedHero, setExpandedHero] = useState(false);
   const [visibleDecor, setVisibleDecor] = useState([]);
  
-  // Scroll-driven expansion of "portfolio"
+
   useEffect(() => {
-    const handleScroll = () => {
-      setExpandedHero(window.scrollY > 80);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const container = document.querySelector('[class*="root"]');
+  if (!container) return;
+
+  const handleScroll = () => {
+    setExpandedHero(container.scrollTop > 20);
+  };
+
+  container.addEventListener("scroll", handleScroll);
+  return () => container.removeEventListener("scroll", handleScroll);
+}, []);
  
   // Staggered fade-in of background "HA0HA0" decorations
   useEffect(() => {
@@ -60,7 +64,6 @@ export default function Hero() {
           portfolio
         </span>
       </div>
-      <div className={styles.scrollHint}>scroll ↓</div>
     </section>
   );
 }
